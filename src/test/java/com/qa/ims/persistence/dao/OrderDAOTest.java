@@ -22,32 +22,32 @@ public class OrderDAOTest {
 	public void setup() {
 		DBUtils.connect();
 		DBUtils.getInstance().init("src/test/resources/sql-schema.sql", "src/test/resources/sql-data.sql");
-		final Order order = new Order(1L,"2001/12/12");
+		final Order order = new Order(1L,"2006/11/12");
 		DAO.create(order);
 	}
 
 	@Test
 	public void testCreate() {
-		final Order order = new Order(2L,"2022/06/12");
+		final Order order = new Order(2L,"2022/07/18");
 		assertEquals(null, DAO.create(order));
 	}
 	
 	@Test
 	public void testReadAll() {
 		List<Order> order = new ArrayList<>();
-		order.add(new Order(1L, (long)1, "2022/06/12", null));
+		order.add(new Order(1L, (long)1, "2022/07/18", null));
 		assertEquals(order, DAO.readAll());
 	}
 
 	@Test
 	public void testReadLatest() {
-		assertEquals(new Order(1L, (long) 1,"2022/06/12", null), DAO.readLatest());
+		assertEquals(new Order(1L, (long) 1,"2022/07/18", null), DAO.readLatest());
 	}
 
 	@Test
 	public void testRead() {
 		final long ID = 1L;
-		assertEquals(new Order(1L, (long) 1,"2022/06/12", null), DAO.read(ID));
+		assertEquals(new Order(1L, (long) 1,"2022/07/18", null), DAO.read(ID));
 	}
 
 	@Test
@@ -60,14 +60,14 @@ public class OrderDAOTest {
 	public void testaddToOrder() {
 		List<Item> Items = new ArrayList<>();
 		final Order updated = new Order(2L,2L, "2022/05/12", Items);
-		Items.add(new Item(2L, "Apple Watch", 899));
+		Items.add(new Item(2L, "Notebook", 1200.00));
 		assertEquals(updated, DAO.addToOrder(2L, 2L));
 	}
 	
 	@Test
 	public void testDeleteItem() {
 		List<Item> Items = new ArrayList<>();
-		Items.add(new Item(1L, "Apple Watch", 899));
+		Items.add(new Item(1L, "Notebook", 5.00));
 		final Order updated = null;
 		assertEquals(updated, DAO.deleteFromOrder(2L, 2L));
 	}
